@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("ordini")
+@RequestMapping("controller")
 public class OrdineController extends AbstractController<Ordine, Long> {
     @PostMapping("/ricezione-ordine")
 //    @Operation(summary = "Ricevi un ordine.")
