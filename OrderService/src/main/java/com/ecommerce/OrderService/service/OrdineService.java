@@ -27,7 +27,7 @@ public class OrdineService extends GenericService<Ordine, Long> {
         OrdineResponse response = helper.buildResponse(repository.save(helper.buildEntityFromRequest(request)));
 
         InvioOrdineResponse customResponse = InvioOrdineResponse.builder()
-                .importo(request.getImporto())
+                .importo(request.getPrezzo())
                 .codOrdine(response.getIdOrdine())
                 .build();
 

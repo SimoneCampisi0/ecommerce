@@ -5,5 +5,5 @@ import lombok.Data;
 
 @Data
 public class InvioOrdineRequest extends AbstractOrdineRequest {
-    private Double importo;
+
 }

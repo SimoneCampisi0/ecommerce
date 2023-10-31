@@ -5,6 +5,6 @@ import org.springframework.stereotype.Component;
 
 @Component
 public interface IHelper<T, A> {
-    public T buildEntityFromRequest(A request);
+    public T buildEntityFromResponse(A response);
 
 }
