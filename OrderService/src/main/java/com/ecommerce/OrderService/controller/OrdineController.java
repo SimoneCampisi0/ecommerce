@@ -1,7 +1,7 @@
 package com.ecommerce.OrderService.controller;
 
 import com.ecommerce.OrderService.controller.abstraction.AbstractController;
-import com.ecommerce.OrderService.dto.request.CreateOrdineRequest;
+import com.ecommerce.OrderService.dto.request.InvioOrdineRequest;
 import com.ecommerce.OrderService.dto.response.ErrorsResponse;
 import com.ecommerce.OrderService.model.Ordine;
 import com.ecommerce.OrderService.service.OrdineService;
@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class OrdineController extends AbstractController<Ordine, Long> {
     @PostMapping("/ricezione-ordine")
 //    @Operation(summary = "Ricevi un ordine.")
-    public ResponseEntity<?> riceviOrdine (@Valid @RequestBody CreateOrdineRequest request) {
+    public ResponseEntity<?> riceviOrdine (@Valid @RequestBody InvioOrdineRequest request) {
         try {
             return ResponseEntity.status(HttpStatus.OK).body(((OrdineService)service).riceviOrdine(request));
         } catch (Exception e) {

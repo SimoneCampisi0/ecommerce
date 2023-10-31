@@ -4,6 +4,6 @@ import com.ecommerce.OrderService.dto.request.abstraction.AbstractOrdineRequest;
 import lombok.Data;
 
 @Data
-public class CreateOrdineRequest extends AbstractOrdineRequest {
-
+public class InvioOrdineRequest extends AbstractOrdineRequest {
+    private Double importo;
 }
