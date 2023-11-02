@@ -24,15 +24,15 @@ public class PaymentService extends GenericService<Payment, Long> {
 
     @Autowired
     private ObjectMapperImpl objectMapperImpl;
-    public void readAndSendOrder(InvioOrdineResponse response) throws DatiMancantiException, JsonProcessingException {
-
+    public String readAndSendOrder(InvioOrdineResponse response) throws DatiMancantiException, JsonProcessingException {
         if(response.getImporto() == null || response.getCodOrdine() == null) {
             throw new DatiMancantiException("Manca importo o codice ordine nell'input");
         }
 
         PaymentResponse paymentResponse = helper.buildResponse(super.create(helper.buildEntityFromResponse(response)));
 
-        producerTemplate.sendBody("activemq:payments", objectMapperImpl.writeValueAsString(paymentResponse));
+//        producerTemplate.sendBody("activemq:payments", objectMapperImpl.writeValueAsString(paymentResponse));
+        return objectMapperImpl.writeValueAsString(paymentResponse);
     }
 
 }

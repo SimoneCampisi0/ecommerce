@@ -20,7 +20,9 @@ public class MessageProcessorRoute extends RouteBuilder { //riceve il messaggio 
     public void configure() throws Exception {
         from("activemq:ordini")
                 .process(exchange -> {
-                    service.readAndSendOrder(objectMapperImpl.readValue(exchange.getIn().getBody(String.class), InvioOrdineResponse.class));
-                });
+                    String jsonResponse = service.readAndSendOrder(objectMapperImpl.readValue(exchange.getIn().getBody(String.class), InvioOrdineResponse.class));
+                    exchange.getMessage().setBody(jsonResponse);
+                })
+                .to("activemq:payments");
     }
 }
