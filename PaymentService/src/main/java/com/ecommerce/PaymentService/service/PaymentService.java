@@ -8,8 +8,6 @@ import com.ecommerce.PaymentService.service.abstraction.GenericService;
 import com.ecommerce.PaymentService.service.helper.PaymentHelper;
 import com.ecommerce.PaymentService.utils.ObjectMapperImpl;
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.netflix.discovery.converters.Auto;
-import org.apache.camel.ProducerTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,8 +17,8 @@ public class PaymentService extends GenericService<Payment, Long> {
     @Autowired
     private PaymentHelper helper;
 
-    @Autowired
-    private ProducerTemplate producerTemplate;
+//    @Autowired
+//    private ProducerTemplate producerTemplate;
 
     @Autowired
     private ObjectMapperImpl objectMapperImpl;

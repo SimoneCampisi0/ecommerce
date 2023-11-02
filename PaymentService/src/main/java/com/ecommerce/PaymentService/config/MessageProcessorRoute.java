@@ -17,7 +17,7 @@ public class MessageProcessorRoute extends RouteBuilder { //riceve il messaggio 
     private PaymentService service;
 
     @Override
-    public void configure() throws Exception {
+    public void configure() {
         from("activemq:ordini")
                 .process(exchange -> {
                     String jsonResponse = service.readAndSendOrder(objectMapperImpl.readValue(exchange.getIn().getBody(String.class), InvioOrdineResponse.class));

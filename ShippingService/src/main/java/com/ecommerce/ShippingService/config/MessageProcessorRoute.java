@@ -18,7 +18,7 @@ public class MessageProcessorRoute extends RouteBuilder { //riceve il messaggio 
 
 
     @Override
-    public void configure() throws Exception {
+    public void configure() {
         from("activemq:payments")
                 .process(exchange -> {
                     service.builShippingFromPayment(objectMapperImpl.readValue(exchange.getIn().getBody(String.class), PaymentResponse.class));
