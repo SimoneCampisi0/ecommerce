@@ -14,7 +14,9 @@ public class SecurityConfig {
         http.authorizeRequests()
                 .anyRequest().authenticated()
                 .and()
-                .oauth2Login();
+                .oauth2Login()
+//                        .defaultSuccessUrl("/user", true); TODO test
+
         return http.build();
     }
 }
