@@ -2,6 +2,7 @@ package com.ecommerce.ShippingService.service;
 
 import com.ecommerce.ShippingService.dto.response.PaymentResponse;
 import com.ecommerce.ShippingService.model.Shipping;
+import com.ecommerce.ShippingService.model.ShippingDetails;
 import com.ecommerce.ShippingService.repository.ShippingDetailsRepository;
 import com.ecommerce.ShippingService.service.abstraction.GenericService;
 import com.ecommerce.ShippingService.service.helper.ShippingHelper;
@@ -17,6 +18,10 @@ public class ShippingService extends GenericService<Shipping, Long> {
     private ShippingDetailsRepository shippingDetailsRepository;
 
     public void builShippingFromPayment(PaymentResponse response) {
+        Shipping shipping = super.create(helper.buildEntityFromResponse(response));
+        ShippingDetails shippingDetails = shippingDetailsRepository.save(helper.buildShippingDetails(shipping));
 
+        shipping.setShippingDetails(shippingDetails);
+        super.update(shipping);
     }
 }

@@ -1,23 +1,12 @@
 package com.ecommerce.ShippingService.dto.response;
 
-import com.ecommerce.ShippingService.utils.enums.StatoPagamento;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-
-import java.io.Serializable;
+import com.ecommerce.ShippingService.dto.response.abstraction.AbstractPaymentResponse;
+import lombok.*;
 
 @Data
 @Builder
 @AllArgsConstructor
-@NoArgsConstructor
-public class PaymentResponse implements Serializable {
-    private Long idPagamento;
+@EqualsAndHashCode(callSuper = false)
+public class PaymentResponse extends AbstractPaymentResponse {
 
-    private Double importo;
-
-    private StatoPagamento statoPagamento;
-
-    private Long codOrdine;
 }

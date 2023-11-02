@@ -17,6 +17,8 @@ public class Shipping {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idShipping;
 
+    private Long codOrdine;
+
     @Enumerated(EnumType.STRING)
     @Column(name = "shipping_status")
     private ShippingStatus shippingStatus;
