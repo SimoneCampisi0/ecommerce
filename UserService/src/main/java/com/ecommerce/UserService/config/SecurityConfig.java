@@ -15,7 +15,7 @@ public class SecurityConfig {
                 .anyRequest().authenticated()
                 .and()
                 .oauth2Login()
-//                        .defaultSuccessUrl("/user", true); TODO test
+                        .defaultSuccessUrl("http://localhost:8080/users/auth/loginSuccess", true);
 
         return http.build();
     }
