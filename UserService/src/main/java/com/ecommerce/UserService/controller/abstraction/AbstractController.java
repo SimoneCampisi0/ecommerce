@@ -7,4 +7,5 @@ import org.springframework.web.bind.annotation.RestController;
 public abstract class AbstractController<T, ID> {
     @Autowired
     public GenericService<T, ID> service;
+
 }

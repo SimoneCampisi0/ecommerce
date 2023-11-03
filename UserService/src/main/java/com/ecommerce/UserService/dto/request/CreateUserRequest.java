@@ -5,6 +5,5 @@ import lombok.Data;
 import lombok.experimental.SuperBuilder;
 
 @Data
-@SuperBuilder
 public class CreateUserRequest extends AbstractUserRequest {
 }

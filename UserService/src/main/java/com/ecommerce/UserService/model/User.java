@@ -1,6 +1,5 @@
 package com.ecommerce.UserService.model;
 
-import com.ecommerce.UserService.utils.enums.AuthServer;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -21,8 +20,4 @@ public class User {
     private String email;
 
     private String password;
-
-    @Enumerated(EnumType.STRING)
-    private AuthServer authServer;
-
 }
