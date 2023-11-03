@@ -1,6 +1,5 @@
 package com.ecommerce.UserService.service.helper;
 
-import com.ecommerce.UserService.dto.request.CreateUserRequest;
 import com.ecommerce.UserService.dto.request.abstraction.AbstractUserRequest;
 import com.ecommerce.UserService.dto.response.UserResponse;
 import com.ecommerce.UserService.model.User;
