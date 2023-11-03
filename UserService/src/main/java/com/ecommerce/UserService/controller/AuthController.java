@@ -2,9 +2,13 @@ package com.ecommerce.UserService.controller;
 
 import com.ecommerce.UserService.controller.abstraction.AbstractController;
 import com.ecommerce.UserService.model.User;
+import com.ecommerce.UserService.service.UserService;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.oauth2.client.OAuth2AuthorizedClient;
+import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
 import org.springframework.security.oauth2.core.OAuth2AccessToken;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,12 +22,10 @@ import java.security.Principal;
 public class AuthController extends AbstractController<User, Long> {
 
     @GetMapping("/loginSuccess")
-    public ResponseEntity<?> loginSuccess(Principal principal) {
+    public ResponseEntity<?> loginSuccess() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        OAuth2User user = (OAuth2User) authentication.getPrincipal();
+        OAuth2User authUser = (OAuth2User) authentication.getPrincipal();
 
-        OAuth2AccessToken accessToken = user.getAttribute("access_token");
-
-        return ResponseEntity.ok("Hello "+user.getAttributes().toString());
+        return ResponseEntity.status(HttpStatus.OK).body(((UserService)service).saveUser(authUser));
     }
 }
