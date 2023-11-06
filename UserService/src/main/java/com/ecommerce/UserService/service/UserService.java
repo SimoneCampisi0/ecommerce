@@ -1,13 +1,16 @@
 package com.ecommerce.UserService.service;
 
 import com.ecommerce.UserService.dto.request.CreateUserRequest;
-import com.ecommerce.UserService.dto.request.LoginUserRequest;
 import com.ecommerce.UserService.dto.response.UserResponse;
 import com.ecommerce.UserService.model.User;
+import com.ecommerce.UserService.repository.UserRepository;
 import com.ecommerce.UserService.service.abstraction.GenericService;
 import com.ecommerce.UserService.service.helper.UserHelper;
 import com.ecommerce.UserService.utils.JWTUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -23,6 +26,9 @@ public class UserService extends GenericService<User, Long> {
     @Autowired
     private JWTUtils jwtUtils;
 
+    @Autowired
+    private AuthenticationManager authenticationManager;
+
     public UserResponse createUser(CreateUserRequest request) {
         request.setPassword(passwordEncoder.encode(request.getPassword()));
         UserResponse response = helper.buildResponse(super.create(helper.buildEntityFromRequest(request)));
@@ -31,8 +37,16 @@ public class UserService extends GenericService<User, Long> {
         return response;
     }
 
-    public String login(LoginUserRequest request) { //TODO: implementare Login, controllare se Swagger è raggiungibile e continuare video
-        return "TODO";
+    public UserResponse login(CreateUserRequest request) {
+        Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(request.getEmail(), request.getPassword()));
+
+        if (authentication.isAuthenticated()) {
+            UserResponse userResponse = helper.buildResponse(((UserRepository)repository).findUserByEmail(request.getEmail()));
+            userResponse.setToken(generateToken(userResponse.getEmail()));
+            return userResponse;
+        } else {
+            throw new RuntimeException("Dati non validi");
+        }
     }
 
 
