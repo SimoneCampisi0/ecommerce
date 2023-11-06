@@ -13,4 +13,6 @@ public class UserResponse {
     private Long idUser;
 
     private String email;
+
+    private String token;
 }
