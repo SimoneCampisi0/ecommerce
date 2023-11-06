@@ -1,7 +1,6 @@
 package com.ecommerce.UserService.config.auth;
 
 import com.ecommerce.UserService.model.User;
-import lombok.Data;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
