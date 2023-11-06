@@ -6,7 +6,6 @@ import java.security.Key;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Objects;
 
 import io.jsonwebtoken.security.Keys;
 import io.jsonwebtoken.io.Decoders;
@@ -20,7 +19,7 @@ public class JWTUtils {
 
     public String validateToken(final String token) {
         try {
-            Jws<Claims> claimsJws = Jwts.parserBuilder().setSigningKey(getSignKey()).build().parseClaimsJws(token);
+            Jwts.parserBuilder().setSigningKey(getSignKey()).build().parseClaimsJws(token);
             return "TOKEN_VALIDO";
         } catch (ExpiredJwtException e) {
             return "TOKEN_SCADUTO";
