@@ -37,9 +37,6 @@ public class AuthFilter extends AbstractGatewayFilterFactory<AuthFilter.Config> 
                 }
 
                 try {
-
-                    System.out.println("token: "+authHeader);
-
                     jwtUtil.validateToken(authHeader);
                 } catch (Exception e) {
                     throw new RuntimeException("JWT non valida.");
