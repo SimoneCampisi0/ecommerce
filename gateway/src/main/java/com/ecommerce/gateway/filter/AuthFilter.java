@@ -1,6 +1,5 @@
 package com.ecommerce.gateway.filter;
 
-import com.ecommerce.gateway.utils.JwtUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.gateway.filter.GatewayFilter;
 import org.springframework.cloud.gateway.filter.factory.AbstractGatewayFilterFactory;
@@ -10,8 +9,8 @@ import org.springframework.web.client.RestTemplate;
 
 @Component
 public class AuthFilter extends AbstractGatewayFilterFactory<AuthFilter.Config> {
-    @Autowired
-    private JwtUtil jwtUtil;
+//    @Autowired
+//    private JwtUtil jwtUtil;
 
     @Autowired
     private RouteValidator validator;
@@ -37,7 +36,8 @@ public class AuthFilter extends AbstractGatewayFilterFactory<AuthFilter.Config> 
                 }
 
                 try {
-                    jwtUtil.validateToken(authHeader);
+//                    jwtUtil.validateToken(authHeader);
+                    template.getForObject("http://localhost:8084/users/auth/validate?token=" + authHeader, String.class);
                 } catch (Exception e) {
                     throw new RuntimeException("JWT non valida.");
                 }

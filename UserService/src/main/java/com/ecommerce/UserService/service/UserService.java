@@ -39,7 +39,6 @@ public class UserService extends GenericService<User, Long> {
 
     public UserResponse login(CreateUserRequest request) {
         Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(request.getEmail(), request.getPassword()));
-
         if (authentication.isAuthenticated()) {
             UserResponse userResponse = helper.buildResponse(((UserRepository)repository).findUserByEmail(request.getEmail()));
             userResponse.setToken(generateToken(userResponse.getEmail()));

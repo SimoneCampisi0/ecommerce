@@ -1,25 +1,38 @@
 package com.ecommerce.UserService.utils;
 
+import com.ecommerce.UserService.repository.UserRepository;
 import io.jsonwebtoken.*;
 
 import java.security.Key;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 import io.jsonwebtoken.security.Keys;
 import io.jsonwebtoken.io.Decoders;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 @Component
 public class JWTUtils {
+
+    @Autowired
+    private UserRepository userRepository;
+
     @Value("${secret.key}")
     private String secretKey;
 
     public String validateToken(final String token) {
         try {
-            Jwts.parserBuilder().setSigningKey(getSignKey()).build().parseClaimsJws(token);
+            Jws<Claims> claimsJwt = Jwts.parserBuilder().setSigningKey(getSignKey()).build().parseClaimsJws(token);
+            String email = claimsJwt.getBody().get("sub", String.class);
+
+            if(Objects.isNull(userRepository.findUserByEmail(email))) {
+                return "TOKEN_NON_VALIDO";
+            }
+
             return "TOKEN_VALIDO";
         } catch (ExpiredJwtException e) {
             return "TOKEN_SCADUTO";
