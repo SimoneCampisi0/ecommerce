@@ -6,7 +6,6 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.io.Serializable;
 import java.util.Set;
 
 @Entity
@@ -14,15 +13,20 @@ import java.util.Set;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class Orders implements Serializable {
+public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long idOrders;
+    private Long idProduct;
 
-    private Double costoTotale;
+    private String productName;
 
-    private Long codCliente;
+    private String productDesq;
 
-    @OneToMany(mappedBy = "associateOrders")
+    private Boolean available;
+
+    private Long codSeller;
+
+    @OneToMany(mappedBy = "soldProduct")
     Set<OrdersDetails> ordersDetails;
+
 }
