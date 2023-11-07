@@ -6,8 +6,18 @@ import com.ecommerce.OrderService.model.Orders;
 import com.ecommerce.OrderService.service.helper.abstraction.IHelper;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Component
 public class OrderHelper implements IHelper<Orders, AbstractOrderRequest> {
+
+    public List<OrderResponse> buildListResponse(List<Orders> ordersList) {
+        return ordersList.stream()
+                .map(this::buildResponse)
+                .collect(Collectors.toList());
+    }
+
     @Override
     public Orders buildEntityFromRequest(AbstractOrderRequest request) {
         return Orders.builder()

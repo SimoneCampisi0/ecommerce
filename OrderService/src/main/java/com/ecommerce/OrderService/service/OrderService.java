@@ -12,6 +12,10 @@ import org.apache.camel.ProducerTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.Objects;
+import java.util.stream.Collectors;
+
 @Service
 public class OrderService extends GenericService<Orders, Long> {
     @Autowired
@@ -22,6 +26,7 @@ public class OrderService extends GenericService<Orders, Long> {
 
     @Autowired
     private ObjectMapperImpl objectMapperImpl;
+
 
     public OrderResponse riceviOrdine(SendOrderRequest request) throws JsonProcessingException {
         OrderResponse response = helper.buildResponse(repository.save(helper.buildEntityFromRequest(request)));
@@ -34,5 +39,20 @@ public class OrderService extends GenericService<Orders, Long> {
         //invio dell'ordine ad Apache Camel
         producerTemplate.sendBody("activemq:ordini", objectMapperImpl.writeValueAsString(customResponse));
         return response;
+    }
+
+    public OrderResponse leggiOrdine(Long idOrdine) {
+        return helper.buildResponse(super.read(idOrdine));
+    }
+
+    public List<OrderResponse> listaOrdini() {
+        return helper.buildListResponse(super.findAll());
+    }
+
+    public List<OrderResponse> listaOrdiniPerCliente(Long idCliente) {
+        return helper.buildListResponse(super.findAll())
+                .stream()
+                .filter(orderResponse -> Objects.equals(orderResponse.getCodCliente(), idCliente))
+                .collect(Collectors.toList());
     }
 }
