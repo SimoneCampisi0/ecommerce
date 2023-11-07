@@ -31,13 +31,15 @@ public class AuthFilter extends AbstractGatewayFilterFactory<AuthFilter.Config> 
                     throw new RuntimeException("JWT mancante nell'header.");
                 }
 
-                String authHeader = exchange.getRequest().getHeaders().get(HttpHeaders.AUTHORIZATION).get(0); //si prende il token
+                String authHeader = exchange.getRequest().getHeaders().get(HttpHeaders.AUTHORIZATION).get(0);
                 if(authHeader != null && authHeader.startsWith("Bearer ")) {
                     authHeader = authHeader.substring(7);
                 }
 
                 try {
-//                    template.getForObject("http://localhost:8084/users/auth/validate?token="+authHeader, String.class); //bisogna criptarla
+
+                    System.out.println("token: "+authHeader);
+
                     jwtUtil.validateToken(authHeader);
                 } catch (Exception e) {
                     throw new RuntimeException("JWT non valida.");

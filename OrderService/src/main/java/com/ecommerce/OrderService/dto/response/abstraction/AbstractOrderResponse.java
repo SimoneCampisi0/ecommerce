@@ -7,7 +7,7 @@ import java.io.Serializable;
 
 @Data
 @SuperBuilder
-public class AbstractOrdineResponse implements Serializable {
+public class AbstractOrderResponse implements Serializable {
     private Long idOrdine;
 
     private Integer quantita;

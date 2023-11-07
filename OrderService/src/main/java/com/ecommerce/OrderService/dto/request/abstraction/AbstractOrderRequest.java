@@ -4,7 +4,7 @@ import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
 @Data
-public abstract class AbstractOrdineRequest {
+public abstract class AbstractOrderRequest {
 
     @NotNull(message = "Quantita obbligatoria.")
     private Integer quantita;

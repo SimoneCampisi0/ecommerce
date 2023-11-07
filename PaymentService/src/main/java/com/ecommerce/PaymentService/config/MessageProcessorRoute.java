@@ -1,6 +1,6 @@
 package com.ecommerce.PaymentService.config;
 
-import com.ecommerce.PaymentService.dto.response.InvioOrdineResponse;
+import com.ecommerce.PaymentService.dto.response.SendOrderResponse;
 import com.ecommerce.PaymentService.service.PaymentService;
 import com.ecommerce.PaymentService.utils.ObjectMapperImpl;
 import org.apache.camel.builder.RouteBuilder;
@@ -20,7 +20,7 @@ public class MessageProcessorRoute extends RouteBuilder { //riceve il messaggio 
     public void configure() {
         from("activemq:ordini")
                 .process(exchange -> {
-                    String jsonResponse = service.readAndSendOrder(objectMapperImpl.readValue(exchange.getIn().getBody(String.class), InvioOrdineResponse.class));
+                    String jsonResponse = service.readAndSendOrder(objectMapperImpl.readValue(exchange.getIn().getBody(String.class), SendOrderResponse.class));
                     exchange.getMessage().setBody(jsonResponse);
                 })
                 .to("activemq:payments");

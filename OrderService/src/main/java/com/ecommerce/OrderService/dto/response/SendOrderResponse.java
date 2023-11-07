@@ -6,7 +6,7 @@ import java.io.Serializable;
 
 @Data
 @SuperBuilder
-public class InvioOrdineResponse implements Serializable {
+public class SendOrderResponse implements Serializable {
     private Double importo;
 
     private Long codOrdine;

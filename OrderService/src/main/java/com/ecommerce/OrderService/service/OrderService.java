@@ -1,11 +1,11 @@
 package com.ecommerce.OrderService.service;
 
-import com.ecommerce.OrderService.dto.request.InvioOrdineRequest;
-import com.ecommerce.OrderService.dto.response.InvioOrdineResponse;
-import com.ecommerce.OrderService.dto.response.OrdineResponse;
-import com.ecommerce.OrderService.model.Ordine;
+import com.ecommerce.OrderService.dto.request.SendOrderRequest;
+import com.ecommerce.OrderService.dto.response.SendOrderResponse;
+import com.ecommerce.OrderService.dto.response.OrderResponse;
+import com.ecommerce.OrderService.model.Orders;
 import com.ecommerce.OrderService.service.abstraction.GenericService;
-import com.ecommerce.OrderService.service.helper.OrdineHelper;
+import com.ecommerce.OrderService.service.helper.OrderHelper;
 import com.ecommerce.OrderService.utils.ObjectMapperImpl;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import org.apache.camel.ProducerTemplate;
@@ -13,9 +13,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class OrdineService extends GenericService<Ordine, Long> {
+public class OrderService extends GenericService<Orders, Long> {
     @Autowired
-    private OrdineHelper helper;
+    private OrderHelper helper;
 
     @Autowired
     private ProducerTemplate producerTemplate;
@@ -23,10 +23,10 @@ public class OrdineService extends GenericService<Ordine, Long> {
     @Autowired
     private ObjectMapperImpl objectMapperImpl;
 
-    public OrdineResponse riceviOrdine(InvioOrdineRequest request) throws JsonProcessingException {
-        OrdineResponse response = helper.buildResponse(repository.save(helper.buildEntityFromRequest(request)));
+    public OrderResponse riceviOrdine(SendOrderRequest request) throws JsonProcessingException {
+        OrderResponse response = helper.buildResponse(repository.save(helper.buildEntityFromRequest(request)));
 
-        InvioOrdineResponse customResponse = InvioOrdineResponse.builder()
+        SendOrderResponse customResponse = SendOrderResponse.builder()
                 .importo(request.getPrezzo())
                 .codOrdine(response.getIdOrdine())
                 .build();

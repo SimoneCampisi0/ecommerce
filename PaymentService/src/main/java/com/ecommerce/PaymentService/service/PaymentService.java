@@ -1,6 +1,6 @@
 package com.ecommerce.PaymentService.service;
 
-import com.ecommerce.PaymentService.dto.response.InvioOrdineResponse;
+import com.ecommerce.PaymentService.dto.response.SendOrderResponse;
 import com.ecommerce.PaymentService.dto.response.PaymentResponse;
 import com.ecommerce.PaymentService.exceptions.DatiMancantiException;
 import com.ecommerce.PaymentService.model.Payment;
@@ -22,7 +22,7 @@ public class PaymentService extends GenericService<Payment, Long> {
 
     @Autowired
     private ObjectMapperImpl objectMapperImpl;
-    public String readAndSendOrder(InvioOrdineResponse response) throws DatiMancantiException, JsonProcessingException {
+    public String readAndSendOrder(SendOrderResponse response) throws DatiMancantiException, JsonProcessingException {
         if(response.getImporto() == null || response.getCodOrdine() == null) {
             throw new DatiMancantiException("Manca importo o codice ordine nell'input");
         }
