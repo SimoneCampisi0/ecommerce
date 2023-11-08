@@ -1,16 +1,16 @@
 package com.ecommerce.OrderService.dto.request.abstraction;
 
+import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
+
+import java.util.Set;
 
 @Data
 public abstract class AbstractOrderRequest {
 
-    @NotNull(message = "Quantita obbligatoria.")
-    private Integer quantita;
-
-    @NotNull(message = "Prezzo obbligatorio.")
-    private Double prezzo;
+    @NotNull(message = "Costo totale obbligatorio.")
+    private Double costoTotale;
 
     @NotNull(message = "Cliente obbligatorio.")
     private Long codCliente;

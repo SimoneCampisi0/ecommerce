@@ -1,10 +1,7 @@
 package com.ecommerce.OrderService.model;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 @Entity
 @Data
@@ -21,10 +18,14 @@ public class OrdersDetails { //per ogni prodotto associato all'ordine viene gene
     private Integer quantita;
 
     @ManyToOne
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
     @JoinColumn(name = "product_id")
     private Product soldProduct;
 
     @ManyToOne
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
     @JoinColumn(name = "orders_id")
     private Orders associateOrders;
 }
