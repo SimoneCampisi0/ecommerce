@@ -17,10 +17,7 @@ import org.apache.camel.ProducerTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.HashSet;
-import java.util.List;
-import java.util.Objects;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -40,14 +37,14 @@ public class OrderService extends GenericService<Orders, Long> {
     @Autowired
     private OrderDetailsRepository orderDetailsRepository;
 
-    public Set<OrdersDetails> parseOrdersDetails(Set<OrdersDetailsRequest> ordersDetailsRequests) {
+    public List<OrdersDetails> parseOrdersDetails(Set<OrdersDetailsRequest> ordersDetailsRequests) {
         return ordersDetailsRequests.stream()
                 .map(request -> OrdersDetails.builder()
                         .quantita(request.getQuantita())
                         .costoParziale(request.getCostoParziale())
                         .soldProduct(productService.read(request.getSoldProduct()))
                         .build())
-                .collect(Collectors.toSet());
+                .collect(Collectors.toList());
     }
 
     public Orders assignProduct(SendOrderRequest request) {
@@ -56,13 +53,14 @@ public class OrderService extends GenericService<Orders, Long> {
                 .costoTotale(request.getCostoTotale())
                 .build());
 
-        Set<OrdersDetails> ordersDetailsSet = parseOrdersDetails(request.getOrdersDetailsRequests());
-        orders.setOrdersDetails(ordersDetailsSet);
+        List<OrdersDetails> ordersDetailsSet = parseOrdersDetails(request.getOrdersDetailsRequests());
+
 
         ordersDetailsSet.forEach(orderDetail -> orderDetail.setAssociateOrders(orders));
-
         orderDetailsRepository.saveAll(ordersDetailsSet);
 
+
+        orders.setOrdersDetails(new HashSet<>(ordersDetailsSet));
         return super.update(orders);
     }
 
