@@ -40,19 +40,6 @@ public class OrderService extends GenericService<Orders, Long> {
     @Autowired
     private OrderDetailsRepository orderDetailsRepository;
 
-//    public Set<OrdersDetails> parseOrdersDetails(Set<OrdersDetailsRequest> ordersDetailsRequests) {
-//        Set<OrdersDetails> ordersDetailsSet = new HashSet<>();
-//        for (OrdersDetailsRequest request : ordersDetailsRequests) {
-//            OrdersDetails ordersDetails = OrdersDetails.builder()
-//                    .quantita(request.getQuantita())
-//                    .costoParziale(request.getCostoParziale())
-//                    .soldProduct(productService.read(request.getSoldProduct()))
-//                    .build();
-//            ordersDetailsSet.add(ordersDetails);
-//        }
-//
-//        return ordersDetailsSet;
-//    }
     public Set<OrdersDetails> parseOrdersDetails(Set<OrdersDetailsRequest> ordersDetailsRequests) {
         return ordersDetailsRequests.stream()
                 .map(request -> OrdersDetails.builder()

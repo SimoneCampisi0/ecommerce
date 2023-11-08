@@ -53,7 +53,7 @@ public class ProductService extends GenericService<Product, Long> {
                 .map(product -> helper.buildResponse(product))
                 .toList();
 
-        return new PageImpl<ProductResponse>(listProductResponse, pageable,  ((ProductRepository)repository).findAll().size());
+        return new PageImpl<ProductResponse>(listProductResponse, pageable, repository.findAll().size());
     }
 
     public ProductResponse modificaProdotto(UpdateProductRequest request) {

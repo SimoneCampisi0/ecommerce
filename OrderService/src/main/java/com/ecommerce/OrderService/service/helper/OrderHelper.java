@@ -8,28 +8,11 @@ import com.ecommerce.OrderService.model.OrdersDetails;
 import com.ecommerce.OrderService.service.helper.abstraction.IHelper;
 import org.springframework.stereotype.Component;
 
-import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
 @Component
 public class OrderHelper implements IHelper<Orders, AbstractOrderRequest> {
-//    public Set<OrdersDetailsResponse> buildOrdersDetailsResponses(Set<OrdersDetails> ordersDetailsSet) {
-//        Set<OrdersDetailsResponse> ordersDetailsResponses = new HashSet<>();
-//        for (OrdersDetails ordersDetails : ordersDetailsSet) {
-//            OrdersDetailsResponse tempResponse = OrdersDetailsResponse.builder()
-//                    .idProdotto(ordersDetails.getSoldProduct().getIdProduct())
-//                    .idOrderDetails(ordersDetails.getIdOrderDetails())
-//                    .quantita(ordersDetails.getQuantita())
-//                    .costoParziale(ordersDetails.getCostoParziale())
-//                    .build();
-//
-//            ordersDetailsResponses.add(tempResponse);
-//        }
-//
-//        return ordersDetailsResponses;
-//    }
 
     public Set<OrdersDetailsResponse> buildOrdersDetailsResponses(Set<OrdersDetails> ordersDetailsSet) {
         return ordersDetailsSet.stream()
