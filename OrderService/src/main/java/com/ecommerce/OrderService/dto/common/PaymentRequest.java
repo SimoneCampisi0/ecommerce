@@ -4,7 +4,7 @@ import lombok.Data;
 
 @Data
 public class PaymentRequest {
-    private MetodoPagamento metodoPagamento;
+    private MetodoPagamentoEnum metodoPagamentoEnum;
 
     private String titolareCarta;
 

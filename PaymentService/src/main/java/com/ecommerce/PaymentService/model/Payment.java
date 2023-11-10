@@ -1,10 +1,7 @@
 package com.ecommerce.PaymentService.model;
 
 import com.ecommerce.PaymentService.utils.enums.StatoPagamento;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -26,4 +23,7 @@ public class Payment {
 
     private Long codOrdine;
 
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "id_payment_method", referencedColumnName = "idPaymentMethod")
+    private PaymentMethod paymentMethod;
 }

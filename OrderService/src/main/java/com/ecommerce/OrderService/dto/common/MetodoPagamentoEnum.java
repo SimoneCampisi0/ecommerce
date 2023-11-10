@@ -1,5 +1,5 @@
 package com.ecommerce.OrderService.dto.common;
 
-public enum MetodoPagamento {
+public enum MetodoPagamentoEnum {
     CARTA_CREDITO, PAYPAL
 }
