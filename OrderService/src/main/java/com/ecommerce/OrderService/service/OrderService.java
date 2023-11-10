@@ -2,17 +2,15 @@ package com.ecommerce.OrderService.service;
 
 import com.ecommerce.OrderService.dto.request.OrdersDetailsRequest;
 import com.ecommerce.OrderService.dto.request.SendOrderRequest;
-import com.ecommerce.OrderService.dto.response.SendOrderResponse;
+import com.ecommerce.OrderService.dto.response.CommonOrdersResponse;
 import com.ecommerce.OrderService.dto.response.OrderResponse;
 import com.ecommerce.OrderService.model.Orders;
 import com.ecommerce.OrderService.model.OrdersDetails;
-import com.ecommerce.OrderService.model.Product;
 import com.ecommerce.OrderService.repository.OrderDetailsRepository;
 import com.ecommerce.OrderService.service.abstraction.GenericService;
 import com.ecommerce.OrderService.service.helper.OrderHelper;
 import com.ecommerce.OrderService.utils.ObjectMapperImpl;
 import com.fasterxml.jackson.core.JsonProcessingException;
-import jakarta.transaction.Transactional;
 import org.apache.camel.ProducerTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -55,7 +53,6 @@ public class OrderService extends GenericService<Orders, Long> {
 
         List<OrdersDetails> ordersDetailsSet = parseOrdersDetails(request.getOrdersDetailsRequests());
 
-
         ordersDetailsSet.forEach(orderDetail -> orderDetail.setAssociateOrders(orders));
         orderDetailsRepository.saveAll(ordersDetailsSet);
 
@@ -64,35 +61,38 @@ public class OrderService extends GenericService<Orders, Long> {
         return super.update(orders);
     }
 
+    public void sendToActiveMQ(Orders orders, SendOrderRequest request) throws JsonProcessingException {
+        CommonOrdersResponse commonResponse = CommonOrdersResponse.builder()
+                .idOrdine(orders.getIdOrders())
+                .costoTotale(orders.getCostoTotale())
+                .paymentRequest(request.getPaymentRequest())
+                .shippingRequest(request.getShippingRequest())
+                .codCliente(orders.getCodCliente())
+                .build();
+        producerTemplate.sendBody("activemq:topayments", objectMapperImpl.writeValueAsString(commonResponse));
+    }
+
 
     public OrderResponse riceviOrdine(SendOrderRequest request) throws JsonProcessingException {
         Orders orders = assignProduct(request);
-        return helper.buildResponse(orders);
 
-//        OrderResponse response = helper.buildResponse(repository.save(helper.buildEntityFromRequest(request)));
-//
-//        SendOrderResponse customResponse = SendOrderResponse.builder()
-//                .importo(request.getPrezzo())
-//                .codOrdine(response.getIdOrdine())
-//                .build();
-//
-//        //invio dell'ordine ad Apache Camel
-//        producerTemplate.sendBody("activemq:ordini", objectMapperImpl.writeValueAsString(customResponse));
-//        return response;
+        sendToActiveMQ(orders, request);
+
+        return helper.buildResponse(orders);
     }
-//
-//    public OrderResponse leggiOrdine(Long idOrdine) {
-//        return helper.buildResponse(super.read(idOrdine));
-//    }
-//
-//    public List<OrderResponse> listaOrdini() {
-//        return helper.buildListResponse(super.findAll());
-//    }
-//
-//    public List<OrderResponse> listaOrdiniPerCliente(Long idCliente) {
-//        return helper.buildListResponse(super.findAll())
-//                .stream()
-//                .filter(orderResponse -> Objects.equals(orderResponse.getCodCliente(), idCliente))
-//                .collect(Collectors.toList());
-//    }
+
+    public OrderResponse leggiOrdine(Long idOrdine) {
+        return helper.buildResponse(super.read(idOrdine));
+    }
+
+    public List<OrderResponse> listaOrdini() {
+        return helper.buildListResponse(super.findAll());
+    }
+
+    public List<OrderResponse> listaOrdiniPerCliente(Long idCliente) {
+        return helper.buildListResponse(super.findAll())
+                .stream()
+                .filter(orderResponse -> Objects.equals(orderResponse.getCodCliente(), idCliente))
+                .collect(Collectors.toList());
+    }
 }

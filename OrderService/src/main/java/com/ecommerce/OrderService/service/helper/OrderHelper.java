@@ -8,6 +8,7 @@ import com.ecommerce.OrderService.model.OrdersDetails;
 import com.ecommerce.OrderService.service.helper.abstraction.IHelper;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -43,20 +44,9 @@ public class OrderHelper implements IHelper<Orders, AbstractOrderRequest> {
                 .build();
     }
 
-//    public List<OrderResponse> buildListResponse(List<Orders> ordersList) {
-//        return ordersList.stream()
-//                .map(this::buildResponse)
-//                .collect(Collectors.toList());
-//    }
-//
-//    @Override
-//    public Orders buildEntityFromRequest(AbstractOrderRequest request) {
-//        return Orders.builder()
-//                .codCliente(request.getCodCliente())
-//                .ordersDetails(request.getPrezzo())
-//                .quantita(request.getQuantita())
-//                .build();
-//    }
-//
-
+    public List<OrderResponse> buildListResponse(List<Orders> ordersList) {
+        return ordersList.stream()
+                .map(this::buildResponse)
+                .collect(Collectors.toList());
+    }
 }
