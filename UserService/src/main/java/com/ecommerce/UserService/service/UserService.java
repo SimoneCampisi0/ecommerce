@@ -31,6 +31,13 @@ public class UserService extends GenericService<User, Long> {
     @Autowired
     private AuthenticationManager authenticationManager;
 
+    @Autowired
+    private AnagraficaService anagraficaService;
+
+    public String getUsernameByUserId(Long idUser) {
+        return anagraficaService.readUsernameByIdUser(idUser);
+    }
+
     public boolean checkUser(String email) {
         if(Objects.isNull(((UserRepository)repository).findUserByEmail(email))) {
             return true;

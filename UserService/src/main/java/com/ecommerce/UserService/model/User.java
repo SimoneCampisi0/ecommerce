@@ -20,4 +20,9 @@ public class User {
     private String email;
 
     private String password;
+
+//    @OneToOne(cascade = CascadeType.ALL)
+//    @JoinColumn(name = "anagrafica_id", referencedColumnName = "idAnagrafica")
+    @OneToOne(mappedBy = "user")
+    private Anagrafica anagrafica;
 }

@@ -6,6 +6,8 @@ import com.ecommerce.UserService.repository.abstraction.GenericRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface UserRepository extends GenericRepository<User, Long> {
-    User findUserByEmail(String email);
+public interface AnagraficaRepository extends GenericRepository<Anagrafica, Long> {
+
+    Anagrafica findAnagraficaByUserIdUser(Long idUser);
+
 }

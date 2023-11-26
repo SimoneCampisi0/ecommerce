@@ -3,8 +3,10 @@ package com.ecommerce.UserService.controller;
 import com.ecommerce.UserService.controller.abstraction.AbstractController;
 import com.ecommerce.UserService.dto.request.CreateUserRequest;
 import com.ecommerce.UserService.model.User;
+import com.ecommerce.UserService.service.AnagraficaService;
 import com.ecommerce.UserService.service.UserService;
 import jakarta.validation.Valid;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -37,4 +39,8 @@ public class UserController extends AbstractController<User, Long> {
         return ResponseEntity.status(HttpStatus.OK).body(((UserService)service).validateToken(token));
     }
 
+    @GetMapping("/getUsernameByUserId")
+    public ResponseEntity<?> getUsernameByUserId(@RequestParam("idUser") Long idUser) {
+        return ResponseEntity.status(HttpStatus.OK).body(((UserService)service).getUsernameByUserId(idUser));
+    }
 }
