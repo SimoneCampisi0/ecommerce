@@ -14,6 +14,8 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.Objects;
+
 @Service
 public class UserService extends GenericService<User, Long> {
 
@@ -29,12 +31,27 @@ public class UserService extends GenericService<User, Long> {
     @Autowired
     private AuthenticationManager authenticationManager;
 
-    public UserResponse createUser(CreateUserRequest request) {
+    public boolean checkUser(String email) {
+        if(Objects.isNull(((UserRepository)repository).findUserByEmail(email))) {
+            return true;
+        }
+        return false;
+    }
+
+    public UserResponse saveUser(CreateUserRequest request) {
         request.setPassword(passwordEncoder.encode(request.getPassword()));
         UserResponse response = helper.buildResponse(super.create(helper.buildEntityFromRequest(request)));
         response.setToken(generateToken(response.getEmail()));
 
         return response;
+    }
+
+    public UserResponse createUser(CreateUserRequest request) {
+        if(checkUser(request.getEmail())) {
+            return saveUser(request);
+        }
+
+        throw new RuntimeException("Utente già presente");
     }
 
     public UserResponse login(CreateUserRequest request) {

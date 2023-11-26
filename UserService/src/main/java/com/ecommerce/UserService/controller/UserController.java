@@ -17,9 +17,14 @@ public class UserController extends AbstractController<User, Long> {
     public ResponseEntity<String> handleException(Exception ex) {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("DATI_NON_VALIDI");
     }
+
     @PostMapping("/register")
     public ResponseEntity<?> register(@Valid @RequestBody CreateUserRequest request) {
-        return ResponseEntity.status(HttpStatus.OK).body(((UserService)service).createUser(request));
+        try {
+            return ResponseEntity.status(HttpStatus.OK).body(((UserService) service).createUser(request));
+        } catch (RuntimeException e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Errore: " + e.getMessage());
+        }
     }
 
     @PostMapping("/login")
