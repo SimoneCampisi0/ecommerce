@@ -2,6 +2,8 @@ package com.ecommerce.UserService.service;
 
 import com.ecommerce.UserService.dto.request.CreateUserRequest;
 import com.ecommerce.UserService.dto.response.UserResponse;
+import com.ecommerce.UserService.model.Anagrafica;
+import com.ecommerce.UserService.model.LuogoResidenza;
 import com.ecommerce.UserService.model.User;
 import com.ecommerce.UserService.repository.UserRepository;
 import com.ecommerce.UserService.service.abstraction.GenericService;
@@ -13,6 +15,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Objects;
 
@@ -34,6 +37,9 @@ public class UserService extends GenericService<User, Long> {
     @Autowired
     private AnagraficaService anagraficaService;
 
+    @Autowired
+    private LuogoResidenzaService luogoResidenzaService;
+
     public String getUsernameByUserId(Long idUser) {
         return anagraficaService.readUsernameByIdUser(idUser);
     }
@@ -45,9 +51,19 @@ public class UserService extends GenericService<User, Long> {
         return false;
     }
 
+    @Transactional
     public UserResponse saveUser(CreateUserRequest request) {
         request.setPassword(passwordEncoder.encode(request.getPassword()));
-        UserResponse response = helper.buildResponse(super.create(helper.buildEntityFromRequest(request)));
+
+        Anagrafica anagrafica = anagraficaService.createAnagraficaEntity(request.getAnagraficaRequest());
+        LuogoResidenza luogoResidenza = luogoResidenzaService.createLuogoResidenzaEntity(request.getAnagraficaRequest().getLuogoResidenzaRequest());
+
+        User user = helper.buildEntityFromRequest(request);
+        anagrafica.setLuogoResidenza(luogoResidenza);
+        user.setAnagrafica(anagrafica);
+
+        anagraficaService.update(anagrafica);
+        UserResponse response = helper.buildResponse(super.create(user));
         response.setToken(generateToken(response.getEmail()));
 
         return response;

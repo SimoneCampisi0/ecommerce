@@ -28,7 +28,6 @@ public class Anagrafica {
     @JoinColumn(name = "luogo_residenza_id", referencedColumnName = "idLuogoResidenza")
     private LuogoResidenza luogoResidenza;
 
-//    @OneToOne(mappedBy = "anagrafica")
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "user_id", referencedColumnName = "idUser")
     private User user;
