@@ -1,6 +1,7 @@
 package com.ecommerce.UserService.service;
 
 import com.ecommerce.UserService.dto.request.CreateUserRequest;
+import com.ecommerce.UserService.dto.request.LoginUserRequest;
 import com.ecommerce.UserService.dto.response.UserResponse;
 import com.ecommerce.UserService.model.Anagrafica;
 import com.ecommerce.UserService.model.LuogoResidenza;
@@ -77,7 +78,7 @@ public class UserService extends GenericService<User, Long> {
         throw new RuntimeException("Utente già presente");
     }
 
-    public UserResponse login(CreateUserRequest request) {
+    public UserResponse login(LoginUserRequest request) {
         Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(request.getEmail(), request.getPassword()));
         if (authentication.isAuthenticated()) {
             UserResponse userResponse = helper.buildResponse(((UserRepository)repository).findUserByEmail(request.getEmail()));

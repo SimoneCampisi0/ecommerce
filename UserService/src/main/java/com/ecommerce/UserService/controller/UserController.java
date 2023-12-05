@@ -2,6 +2,7 @@ package com.ecommerce.UserService.controller;
 
 import com.ecommerce.UserService.controller.abstraction.AbstractController;
 import com.ecommerce.UserService.dto.request.CreateUserRequest;
+import com.ecommerce.UserService.dto.request.LoginUserRequest;
 import com.ecommerce.UserService.model.User;
 
 import com.ecommerce.UserService.service.UserService;
@@ -29,7 +30,7 @@ public class UserController extends AbstractController<User, Long> {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<?> login(@Valid @RequestBody CreateUserRequest request) {
+    public ResponseEntity<?> login(@Valid @RequestBody LoginUserRequest request) {
         return ResponseEntity.status(HttpStatus.OK).body(((UserService)service).login(request));
     }
 
