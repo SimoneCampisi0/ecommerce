@@ -16,7 +16,7 @@ public class LuogoResidenzaHelper implements IHelper<LuogoResidenza, AbstractLuo
                 .comune(request.getComune())
                 .indirizzo(request.getIndirizzo())
                 .civico(request.getCivico())
-                .CAP(request.getCAP())
+                .CAP(request.getCap())
                 .build();
     }
 }

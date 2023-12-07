@@ -14,5 +14,5 @@ public abstract class AbstractLuogoResidenzaRequest {
 
     private String civico;
 
-    private String CAP;
+    private String cap;
 }
