@@ -1,7 +1,5 @@
 package com.ecommerce.UserService.model;
 
-import com.ecommerce.UserService.utils.enums.Provincia;
-import com.ecommerce.UserService.utils.enums.Stato;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -18,9 +16,9 @@ public class LuogoResidenza {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idLuogoResidenza;
 
-    private Stato stato;
+    private String stato;
 
-    private Provincia provincia;
+    private String provincia;
 
     private String comune;
 

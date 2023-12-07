@@ -9,6 +9,7 @@ import org.springframework.stereotype.Component;
 public class LuogoResidenzaHelper implements IHelper<LuogoResidenza, AbstractLuogoResidenzaRequest> {
     @Override
     public LuogoResidenza buildEntityFromRequest(AbstractLuogoResidenzaRequest request) {
+
         return LuogoResidenza.builder()
                 .stato(request.getStato())
                 .provincia(request.getProvincia())
