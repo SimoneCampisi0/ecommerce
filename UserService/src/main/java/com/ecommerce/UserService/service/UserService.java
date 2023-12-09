@@ -3,7 +3,6 @@ package com.ecommerce.UserService.service;
 import com.ecommerce.UserService.dto.request.CreateUserRequest;
 import com.ecommerce.UserService.dto.request.LoginUserRequest;
 import com.ecommerce.UserService.dto.response.UserResponse;
-import com.ecommerce.UserService.model.Anagrafica;
 import com.ecommerce.UserService.model.LuogoResidenza;
 import com.ecommerce.UserService.model.User;
 import com.ecommerce.UserService.repository.UserRepository;
@@ -56,14 +55,12 @@ public class UserService extends GenericService<User, Long> {
     public UserResponse saveUser(CreateUserRequest request) {
         request.setPassword(passwordEncoder.encode(request.getPassword()));
 
-        Anagrafica anagrafica = anagraficaService.createAnagraficaEntity(request.getAnagraficaRequest());
         LuogoResidenza luogoResidenza = luogoResidenzaService.createLuogoResidenzaEntity(request.getAnagraficaRequest().getLuogoResidenzaRequest());
 
         User user = helper.buildEntityFromRequest(request);
-        anagrafica.setLuogoResidenza(luogoResidenza);
-        user.setAnagrafica(anagrafica);
 
-        anagraficaService.update(anagrafica);
+        anagraficaService.createAnagraficaEntity(request.getAnagraficaRequest(), user, luogoResidenza);
+
         UserResponse response = helper.buildResponse(super.create(user));
         response.setToken(generateToken(response.getEmail()));
 

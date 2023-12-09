@@ -14,6 +14,7 @@ public class LuogoResidenzaService extends GenericService<LuogoResidenza, Long> 
     private LuogoResidenzaHelper helper;
 
     public LuogoResidenza createLuogoResidenzaEntity(CreateLuogoResidenzaRequest request) {
-        return super.create(helper.buildEntityFromRequest(request));
+        LuogoResidenza luogoResidenza = helper.buildEntityFromRequest(request);
+        return super.create(luogoResidenza);
     }
 }

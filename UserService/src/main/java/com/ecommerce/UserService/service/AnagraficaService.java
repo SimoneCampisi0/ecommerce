@@ -2,6 +2,8 @@ package com.ecommerce.UserService.service;
 
 import com.ecommerce.UserService.dto.request.CreateAnagraficaRequest;
 import com.ecommerce.UserService.model.Anagrafica;
+import com.ecommerce.UserService.model.LuogoResidenza;
+import com.ecommerce.UserService.model.User;
 import com.ecommerce.UserService.repository.AnagraficaRepository;
 import com.ecommerce.UserService.service.abstraction.GenericService;
 import com.ecommerce.UserService.service.helper.AnagraficaHelper;
@@ -19,8 +21,11 @@ public class AnagraficaService extends GenericService<Anagrafica, Long> {
         return anagrafica.getNome() + " " + anagrafica.getCognome();
     }
 
-    public Anagrafica createAnagraficaEntity(CreateAnagraficaRequest request) {
-        return super.create(helper.buildEntityFromRequest(request));
+    public void createAnagraficaEntity(CreateAnagraficaRequest request, User user, LuogoResidenza luogoResidenza) {
+        Anagrafica anagrafica = helper.buildEntityFromRequest(request);
+        anagrafica.setUser(user);
+        anagrafica.setLuogoResidenza(luogoResidenza);
+        super.create(anagrafica);
     }
 
 }
