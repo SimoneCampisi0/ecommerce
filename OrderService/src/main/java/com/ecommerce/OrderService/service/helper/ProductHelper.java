@@ -13,6 +13,7 @@ public class ProductHelper implements IHelper<Product, AbstractProductRequest> {
         return Product.builder()
                 .productName(request.getProductName())
                 .productDesq(request.getProductDesq())
+                .productCost(request.getProductCost())
                 .available(request.getAvailable())
                 .codSeller(request.getCodSeller())
                 .build();
@@ -23,6 +24,7 @@ public class ProductHelper implements IHelper<Product, AbstractProductRequest> {
                 .idProduct(product.getIdProduct())
                 .productName(product.getProductName())
                 .productDesq(product.getProductDesq())
+                .productCost(product.getProductCost())
                 .available(product.getAvailable())
                 .codSeller(product.getCodSeller())
                 .build();

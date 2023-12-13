@@ -40,6 +40,7 @@ public class UserService extends GenericService<User, Long> {
     @Autowired
     private LuogoResidenzaService luogoResidenzaService;
 
+
     public String getUsernameByUserId(Long idUser) {
         return anagraficaService.readUsernameByIdUser(idUser);
     }

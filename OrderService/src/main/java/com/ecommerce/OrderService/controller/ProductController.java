@@ -36,7 +36,7 @@ public class ProductController extends AbstractController<Product, Long> {
         }
     }
 
-    @GetMapping("/lista-prodotti")
+    @GetMapping("/lista-prodotti") //TODO: Le chiamate non provenienti dall'UserService danno errore 403. Risolvere
     @Operation(summary = "Lista dei prodotti.")
     public ResponseEntity<?> listaProdotti() {
         try {
@@ -48,7 +48,7 @@ public class ProductController extends AbstractController<Product, Long> {
 
     @GetMapping()
     @Operation(summary = "Lista paginata prodotti.")
-    public ResponseEntity<?> listaProdottiPage(
+    public ResponseEntity<?> listaProdottiPaginata(
                     @RequestParam(defaultValue = "0") Integer pageNumber,
                     @RequestParam(defaultValue = "10") Integer pageSize,
                     @RequestParam(defaultValue = "productName") String sortBy,
@@ -71,7 +71,7 @@ public class ProductController extends AbstractController<Product, Long> {
         }
     }
 
-    @DeleteMapping("/elimijna-prodotto")
+    @DeleteMapping("/elimina-prodotto")
     @Operation(summary = "Elimina un prodotto.")
     public ResponseEntity<?> eliminaProdotto(@RequestParam("idProdotto") Long idProdotto) {
         try {

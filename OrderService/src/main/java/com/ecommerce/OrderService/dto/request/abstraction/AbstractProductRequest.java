@@ -8,6 +8,8 @@ public class AbstractProductRequest {
 
     private String productDesq;
 
+    private Double productCost;
+
     private Boolean available;
 
     private Long codSeller;
