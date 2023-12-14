@@ -36,7 +36,16 @@ public class ProductController extends AbstractController<Product, Long> {
         }
     }
 
-    @GetMapping("/lista-prodotti") //TODO: Le chiamate non provenienti dall'UserService danno errore 403. Risolvere
+    /* TODO: Le chiamate non provenienti dall'UserService danno errore 403. Risolvere.
+        Le richieste non arrivano qui nel ProductService, ma si bloccano nel gateway.
+        E' come se il CORS si rompessero nella comunicazione tra il Gateway e il microservizio ProductService.
+        Possibili ipotesi:
+        -Problema sulla configurazione dei CORS nel gateway: cercare come configurare i CORS per ogni microservizio.
+        -La security, essendo implementata soltanto nell'UserService, crea un conflitto. (poco probabile, dato che da postman funziona correttamente la security)
+
+    */
+
+    @GetMapping("/lista-prodotti")
     @Operation(summary = "Lista dei prodotti.")
     public ResponseEntity<?> listaProdotti() {
         try {

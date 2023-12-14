@@ -32,6 +32,7 @@ public class AuthConfig {
                         .requestMatchers("/auth/**").permitAll()
                         .requestMatchers("/swagger-ui/**").permitAll()
                         .requestMatchers("/v3/**").permitAll()
+                        .anyRequest().authenticated()
                 )
                 .build();
     }
