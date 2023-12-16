@@ -38,10 +38,13 @@ public class ProductController extends AbstractController<Product, Long> {
 
     /* TODO: Le chiamate non provenienti dall'UserService danno errore 403. Risolvere.
         Le richieste non arrivano qui nel ProductService, ma si bloccano nel gateway.
-        E' come se il CORS si rompessero nella comunicazione tra il Gateway e il microservizio ProductService.
+        E' come se i CORS si rompessero nella comunicazione tra il Gateway e il microservizio ProductService.
         Possibili ipotesi:
-        -Problema sulla configurazione dei CORS nel gateway: cercare come configurare i CORS per ogni microservizio.
-        -La security, essendo implementata soltanto nell'UserService, crea un conflitto. (poco probabile, dato che da postman funziona correttamente la security)
+        Indagando, NON bisogna impostare i CORS in ogni microservizio, ma soltanto nel gateway, così com'è ora.
+        Piuttosto, sembra esserci un problema quando un microservizio, dopo che il gateway accetta la sua request, esegue la validazione.
+
+        Controllare esattamente cosa avviene prima, dopo e durante la validazione, sembra essere lì il problema.
+        Controlla anche la response HTTP ottenuta da Postman quando si interroga un microservizio.
 
     */
 
