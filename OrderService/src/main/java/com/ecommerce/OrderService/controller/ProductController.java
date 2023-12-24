@@ -46,7 +46,9 @@ public class ProductController extends AbstractController<Product, Long> {
         Controllare esattamente cosa avviene prima, dopo e durante la validazione, sembra essere lì il problema.
         Controlla anche la response HTTP ottenuta da Postman quando si interroga un microservizio.
 
-        Pul essere che il problema stia in Angular, nella chiamata get.
+        Può essere che il problema stia in Angular, nella chiamata get.
+
+        RIVEDERE JWT e SECURITY
 
     */
 

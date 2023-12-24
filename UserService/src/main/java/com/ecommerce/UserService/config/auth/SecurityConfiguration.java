@@ -32,6 +32,7 @@ public class SecurityConfiguration {
                         .requestMatchers("/auth/**").permitAll()
                         .requestMatchers("/swagger-ui/**").permitAll()
                         .requestMatchers("/v3/**").permitAll()
+                        .requestMatchers("/orders/products/lista-prodotti").permitAll()
                         .anyRequest().authenticated()
                 )
                 .build();

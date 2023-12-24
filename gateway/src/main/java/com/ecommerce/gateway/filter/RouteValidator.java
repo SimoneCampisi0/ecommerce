@@ -14,6 +14,8 @@ public class RouteValidator {
             "/users/auth/login",
             "/users/auth/validate",
             "/eureka",
+            "/orders/products/lista-prodotti",
+
 
             //Swagger
             "/swagger-ui/index.html",
