@@ -1,5 +1,6 @@
 package com.ecommerce.UserService.model;
 
+import com.ecommerce.UserService.utils.enums.SessoEnum;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -23,6 +24,9 @@ public class Anagrafica {
     private String cognome;
 
     private Date dataNascita;
+
+    @Enumerated(EnumType.STRING)
+    private SessoEnum sesso;
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "luogo_residenza_id", referencedColumnName = "idLuogoResidenza")

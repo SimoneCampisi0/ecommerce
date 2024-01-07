@@ -1,5 +1,6 @@
 package com.ecommerce.UserService.dto.request.abstraction;
 
+import com.ecommerce.UserService.utils.enums.SessoEnum;
 import lombok.Data;
 
 import java.util.Date;
@@ -12,4 +13,5 @@ public abstract class AbstractAnagraficaRequest {
 
     private Date dataNascita;
 
+    private String sesso;
 }
