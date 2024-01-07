@@ -1,5 +1,8 @@
 package com.ecommerce.UserService.utils.enums;
 
+import lombok.Getter;
+
+@Getter
 public enum SessoEnum {
     UOMO("Uomo"),
     DONNA("Donna"),
@@ -7,11 +10,7 @@ public enum SessoEnum {
 
     private String valore;
 
-    private SessoEnum(String valore) {
+    SessoEnum(String valore) {
         this.valore = valore;
-    }
-
-    public String getValore() {
-        return this.valore;
     }
 }
