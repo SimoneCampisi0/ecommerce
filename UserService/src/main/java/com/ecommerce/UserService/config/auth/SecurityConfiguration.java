@@ -29,12 +29,20 @@ public class SecurityConfiguration {
         return http
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(authorizeRequest -> authorizeRequest
-//                        .requestMatchers("/auth/**").permitAll()
-//                        .requestMatchers("/swagger-ui/**").permitAll()
-//                        .requestMatchers("/v3/**").permitAll()
+//                        .requestMatchers("/auth/register").permitAll()
+//                        .requestMatchers("/auth/login").permitAll()
+//                        .requestMatchers("/auth/validate").permitAll()
+//                        .requestMatchers("/auth/eureka").permitAll()
 //                        .requestMatchers("/orders/products/lista-prodotti").permitAll()
+//
+//                        .requestMatchers("/swagger-ui/index.html").permitAll()
+//                        .requestMatchers("/v3/api-docs").permitAll()
+//                        .requestMatchers("/swagger-ui/**").permitAll()
+//                        .requestMatchers("/swagger-resources/**").permitAll()
+//                        .requestMatchers("/webjars/**").permitAll()
+//
 //                        .anyRequest().authenticated()
-                                .anyRequest().permitAll()
+                    .anyRequest().permitAll()
                 )
                 .build();
     }
