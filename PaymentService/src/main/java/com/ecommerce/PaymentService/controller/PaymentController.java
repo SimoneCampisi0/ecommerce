@@ -1,5 +1,6 @@
-package com.ecommerce.PaymentService.controller.abstraction;
+package com.ecommerce.PaymentService.controller;
 
+import com.ecommerce.PaymentService.controller.abstraction.AbstractController;
 import com.ecommerce.PaymentService.model.Payment;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

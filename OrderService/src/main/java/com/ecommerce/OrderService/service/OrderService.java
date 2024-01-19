@@ -9,9 +9,6 @@ import com.ecommerce.OrderService.model.OrdersDetails;
 import com.ecommerce.OrderService.repository.OrderDetailsRepository;
 import com.ecommerce.OrderService.service.abstraction.GenericService;
 import com.ecommerce.OrderService.service.helper.OrderHelper;
-import com.ecommerce.OrderService.utils.ObjectMapperImpl;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import org.apache.camel.ProducerTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -23,11 +20,11 @@ public class OrderService extends GenericService<Orders, Long> {
     @Autowired
     private OrderHelper helper;
 
-    @Autowired
-    private ProducerTemplate producerTemplate;
-
-    @Autowired
-    private ObjectMapperImpl objectMapperImpl;
+//    @Autowired
+//    private ProducerTemplate producerTemplate;
+//
+//    @Autowired
+//    private ObjectMapperImpl objectMapperImpl;
 
     @Autowired
     private ProductService productService;
@@ -61,25 +58,25 @@ public class OrderService extends GenericService<Orders, Long> {
         return super.update(orders);
     }
 
-    public void sendToActiveMQ(Orders orders, SendOrderRequest request) throws JsonProcessingException {
-        CommonOrdersResponse commonResponse = CommonOrdersResponse.builder()
-                .idOrdine(orders.getIdOrders())
-                .costoTotale(orders.getCostoTotale())
-                .paymentRequest(request.getPaymentRequest())
-                .shippingRequest(request.getShippingRequest())
-                .codCliente(orders.getCodCliente())
-                .build();
-        producerTemplate.sendBody("activemq:topayments", objectMapperImpl.writeValueAsString(commonResponse));
-    }
+//    public void sendToActiveMQ(Orders orders, SendOrderRequest request) throws JsonProcessingException {
+//        CommonOrdersResponse commonResponse = CommonOrdersResponse.builder()
+//                .idOrdine(orders.getIdOrders())
+//                .costoTotale(orders.getCostoTotale())
+//                .paymentRequest(request.getPaymentRequest())
+//                .shippingRequest(request.getShippingRequest())
+//                .codCliente(orders.getCodCliente())
+//                .build();
+//        producerTemplate.sendBody("activemq:topayments", objectMapperImpl.writeValueAsString(commonResponse));
+//    }
 
 
-    public OrderResponse riceviOrdine(SendOrderRequest request) throws JsonProcessingException {
-        Orders orders = assignProduct(request);
-
-        sendToActiveMQ(orders, request);
-
-        return helper.buildResponse(orders);
-    }
+//    public OrderResponse riceviOrdine(SendOrderRequest request) throws JsonProcessingException {
+//        Orders orders = assignProduct(request);
+//
+//        sendToActiveMQ(orders, request);
+//
+//        return helper.buildResponse(orders);
+//    }
 
     public OrderResponse leggiOrdine(Long idOrdine) {
         return helper.buildResponse(super.read(idOrdine));
